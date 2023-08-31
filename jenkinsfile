@@ -1,21 +1,13 @@
 pipeline {
+  
+  node {
 
-  environment {
-    dockerimagename = "chendureddy/nodeapp"
-    dockerImage = ""
-  }
+    stage("Git Clone"){
 
-  agent any
-
-  stages {
-
-    stage('Checkout Source') {
-      steps {
-        git 'https://github.com/chendureddy/Node.js_project.git'
-      }
+        git credentialsId: 'GIT_HUB_CREDENTIALS', url: 'https://github.com/chendureddy/Node.js_project.git'
     }
 
-    stage('Build image') {
+     stage('Build image') {
       steps{
         script {
           dockerImage = docker.build dockerimagename
